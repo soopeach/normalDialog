@@ -18,9 +18,9 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.btn)
 
         button.setOnClickListener {
-            val builder = checkBoxDialog()
-            builder.show()
+            viewDialog()
         }
+
     }
 
     fun basicDialog(): AlertDialog.Builder {
@@ -120,24 +120,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun viewDialog(): AlertDialog.Builder {
+    fun viewDialog() {
 
         val dialogView = layoutInflater.inflate(R.layout.dialog_view, null)
+        val builder = AlertDialog.Builder(this).setView(dialogView)
+            .create()
 
         val passBtn = dialogView.findViewById<Button>(R.id.checkBtn)
         passBtn.setOnClickListener {
+            builder.dismiss()
             Toast.makeText(
                 this,
                 "${dialogView.findViewById<EditText>(R.id.password).text}",
                 Toast.LENGTH_SHORT
             ).show()
         }
-
-        val builder = AlertDialog.Builder(this)
-        builder.setView(dialogView)
-            .create()
-
-        return builder
+        builder.show()
     }
 
 
